@@ -1,0 +1,12 @@
+{
+    "name": "WorkoutConverter",
+    "image": "python:3.10-slim-bullseye",
+    "runArgs": [],
+    "extensions": [
+        "ms-python.python"
+    ],
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {},
+        "ghcr.io/devcontainers/features/git:1": {}
+    }
+}
