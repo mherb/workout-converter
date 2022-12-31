@@ -1,12 +1,18 @@
 from pathlib import Path
+import xml.etree.ElementTree as ET
+from .base import ParserBase
 from ..workout import Workout
 from ..segment import Segment, SegmentEntry, SegmentType, Target, TargetSet, TargetType
-import xml.etree.ElementTree as ET
 
 
-class ZwiftParser(object):
+class ZwiftParser(ParserBase):
+    
+    NAME = "Zwift"
+    FORMAT = "zwo"
+    FILE_EXT = "zwo"
+    
     def __init__(self, file_path: Path):
-        self._file_path = file_path
+        super().__init__(file_path)
 
     def load(self) -> Workout:
         try:
@@ -16,6 +22,9 @@ class ZwiftParser(object):
             print("Error parsing {}".format(self._file_path))
             raise e
 
+    def save(self, workout: Workout):
+        raise NotImplementedError()
+    
     def _parse_workout(self, root: ET.Element) -> Workout:
         name = root.findtext("name")
         description = root.findtext("description")
@@ -89,6 +98,3 @@ class ZwiftParser(object):
         elif tag == "freeride":
             return SegmentType.FREERIDE
         return None
-
-    def save(self, workout: Workout):
-        raise NotImplementedError()

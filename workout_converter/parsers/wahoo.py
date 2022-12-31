@@ -1,16 +1,19 @@
 from pathlib import Path
 import textwrap
 from typing import List
+from .base import ParserBase
 from ..workout import Workout
 from ..segment import Segment, SegmentEntry, SegmentType, Target, TargetSet, TargetType
 
 
-class WahooParser(object):
+class WahooParser(ParserBase):
 
+    NAME = "Wahoo Plan"
+    FORMAT = "wahoo"
     FILE_EXT = "plan"
 
     def __init__(self, file_path: Path):
-        self._file_path = file_path
+        super().__init__(file_path)
 
     def load(self) -> Workout:
         raise NotImplementedError()
